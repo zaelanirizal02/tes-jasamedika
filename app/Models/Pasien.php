@@ -9,10 +9,10 @@ class Pasien extends Model
 {
     use HasFactory;
 
+    protected $dates = ['tanggal_lahir'];
     protected $fillable =
     [
         'nama',
-        'tanggal_lahir',
         'jenis_kelamin',
         'no_telepon',
         'alamat',

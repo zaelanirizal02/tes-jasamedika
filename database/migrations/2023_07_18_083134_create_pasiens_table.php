@@ -15,15 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->text('pasien_id');
-            $table->string('tanggal_lahir');
+            $table->date('tanggal_lahir');
             $table->string('jenis_kelamin');
             $table->string('no_telepon');
             $table->string('alamat');
             $table->string('rt');
             $table->string('rw');
-
             $table->string('kelurahan');
-
             $table->timestamps();
         });
     }

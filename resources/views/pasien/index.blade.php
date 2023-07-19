@@ -10,6 +10,17 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 
+
+<nav class=" navbar-expand-sm bg-primary navbar-light" style="font-size: 20px">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+        <div class="container-fluid justify-content-center">
+            <a class="navbar-link active" href="/kelurahans" style="color: aliceblue">Data Kelurahan</a>
+            <span>--</span>
+            <a class="navbar-link active" href="/pasiens" style="color: aliceblue">Data Pasien</a>
+        </div>
+    </nav>
+</nav>
+
 <body style="background: lightgray">
 
     <div class="container mt-5">
@@ -17,6 +28,8 @@
             <div class="col-md-12">
                 <div>
                     <h3 class="text-center my-4">DATA PASIEN</h3>
+
+
 
 
                     <hr>
@@ -28,6 +41,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th class="col-1">No</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Tanggal Lahir</th>
                                     <th scope="col">Jenis Kelamin</th>
@@ -39,16 +53,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($pasiens as $pasien)
+                                <?php $i = 1; ?>
+                                @foreach ($pasiens as $pasien)
                                     <tr>
-
+                                        <td>{{ $i }}</td>
                                         <td>{{ $pasien->nama }}</td>
                                         <td>{{ $pasien->tanggal_lahir }}</td>
                                         <td>{{ $pasien->jenis_kelamin }}</td>
                                         <td>{{ $pasien->no_telepon }}</td>
                                         <td>{{ $pasien->alamat }}, RT/{{ $pasien->rt }}, RW/{{ $pasien->rw }},
-                                            {{ $pasien->rtrw }},<br> Kelurahan
-                                            {{ $pasien->kelurahan }}</td>
+                                            <br> Kelurahan
+                                            {{ $pasien->kelurahan }}
+                                        </td>
                                         <td>{{ $pasien->pasien_id }}</td>
 
                                         <td class="text-center">
@@ -62,11 +78,8 @@
                                             </form>
                                         </td>
                                     </tr>
-                                @empty
-                                    <div class="alert alert-danger">
-                                        Data pasien belum Tersedia.
-                                    </div>
-                                @endforelse
+                                    <?php $i++; ?>
+                                @endforeach
                             </tbody>
                         </table>
                         {{ $pasiens->links() }}

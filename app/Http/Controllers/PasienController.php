@@ -46,11 +46,8 @@ class PasienController extends Controller
         $this->validate($request, [
             'nama' => 'required|min:3',
             'tanggal_lahir' => 'required|min:4',
-
             'no_telepon' => 'required|min:5',
             'alamat' => 'required|min:5'
-
-
         ]);
 
         //create post
@@ -73,11 +70,6 @@ class PasienController extends Controller
         // 'jenis_kelamin' => $request->jenis_kelamin,
         // 'no_telepon' => $request->no_telepon,
         // 'alamat' => $request->alamat,
-
-
-
-
-
         //redirect to index
         return redirect()->route('pasiens.index')->with(['succes' => 'Data Berhasil Ditambah']);
     }
@@ -95,22 +87,57 @@ class PasienController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //get by ID
+        $pasien = Pasien::findOrFail($id);
+
+
+        //render view edit
+        return view('pasien.edit', compact('pasien'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    //update data edited
+    public function update(Request $request, $id): RedirectResponse
     {
-        //
+        //validate form
+        $this->validate(
+            $request,
+            [
+                'nama' => 'required|min:3',
+                'tanggal_lahir' => 'required|min:4',
+                'no_telepon' => 'required|min:5',
+                'alamat' => 'required|min:5'
+            ]
+        );
+
+        //get by ID
+        $pasien = Pasien::findOrFail($id);
+        $pasien->update([
+            'nama' => $request->nama,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'no_telepon' => $request->no_telepon,
+            'alamat' => $request->alamat,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            // 'kelurahan' => $request->kelurahan
+
+        ]);
+
+        //redirect ti index
+        return redirect()->route('pasiens.index')->with(['succes' => 'Data Berhasil di Update']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    //Delete
+    // get by ID
+    public function destroy($id): RedirectResponse
     {
-        //
+        $pasien = Pasien::findOrFail($id);
+
+        //Delete Post
+        $pasien->delete();
+
+        //retuen to index
+        return redirect()->route('pasiens.index')->with(['succes' => 'Data Berhasil Dihapus']);
     }
 }

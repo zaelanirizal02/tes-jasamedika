@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
+
+<nav class=" navbar-expand-sm bg-primary navbar-light" style="font-size: 20px">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+        <div class="container-fluid justify-content-center">
+            <a class="navbar-link active" href="/kelurahans" style="color: aliceblue">Data Kelurahan</a>
+            <span>--</span>
+            <a class="navbar-link active" href="/pasiens" style="color: aliceblue">Data Pasien</a>
+        </div>
+    </nav>
+</nav>
+
 <body style="background: lightgray">
 
     <div class="container mt-5">
@@ -21,42 +33,47 @@
                 </div>
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <a href="{{ route('kelurahans.create') }}" class="btn btn-md btn-success mb-3">TAMBAH kelurahan</a>
+                        <a href="{{ route('kelurahans.create') }}" class="btn btn-md btn-success mb-3">TAMBAH
+                            kelurahan</a>
                         <table class="table table-bordered">
                             <thead>
-                              <tr>
-                                <th scope="col">KELURAHAN</th>
-                                <th scope="col">KECAMATAN</th>
-                                <th scope="col">KOTA</th>
-                                <th scope="col" style="text-align: center">AKSI</th>
+                                <tr>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">KELURAHAN</th>
+                                    <th scope="col">KECAMATAN</th>
+                                    <th scope="col">KOTA</th>
+                                    <th scope="col" style="text-align: center">AKSI</th>
 
-                              </tr>
+                                </tr>
                             </thead>
                             <tbody>
-                              @forelse ($kelurahans as $kelurahan)
-                                <tr>
+                                <?php $i = 1; ?>
+                                @foreach ($kelurahans as $kelurahan)
+                                    <tr>
 
-                                    <td>{{ $kelurahan->kelurahan }}</td>
-                                    <td>{{ $kelurahan->kecamatan }}</td>
-                                    <td>{{ $kelurahan->kota }}</td>
+                                        <td>{{ $i }}</td>
+                                        <td>{{ $kelurahan->kelurahan }}</td>
+                                        <td>{{ $kelurahan->kecamatan }}</td>
+                                        <td>{{ $kelurahan->kota }}</td>
 
-                                    <td class="text-center">
-                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('kelurahans.destroy', $kelurahan->id) }}" method="POST">
-                                            <a href="{{ route('kelurahans.edit', $kelurahan->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                              @empty
-                                  <div class="alert alert-danger">
-                                      Data kelurahan belum Tersedia.
-                                  </div>
-                              @endforelse
+                                        <td class="text-center">
+                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+                                                action="{{ route('kelurahans.destroy', $kelurahan->id) }}"
+                                                method="POST">
+                                                <a href="{{ route('kelurahans.edit', $kelurahan->id) }}"
+                                                    class="btn btn-sm btn-primary">EDIT</a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+
+                                    <?php $i++; ?>
+                                @endforeach
                             </tbody>
-                          </table>
-                          {{ $kelurahans->links() }}
+                        </table>
+                        {{ $kelurahans->links() }}
                     </div>
                 </div>
             </div>
@@ -69,16 +86,15 @@
 
     <script>
         //message with toastr
-        @if(session()->has('success'))
+        @if (session()->has('success'))
 
             toastr.success('{{ session('success') }}', 'BERHASIL!');
-
-        @elseif(session()->has('error'))
+        @elseif (session()->has('error'))
 
             toastr.error('{{ session('error') }}', 'GAGAL!');
-
         @endif
     </script>
 
 </body>
+
 </html>

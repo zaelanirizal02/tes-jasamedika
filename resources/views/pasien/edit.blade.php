@@ -5,38 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tambah Data nama</title>
+    <title>Edit Data Pasien</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<nav class=" navbar-expand-sm bg-primary navbar-light" style="font-size: 20px">
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
-        <div class="container-fluid justify-content-center">
-            <a class="navbar-link active" href="/kelurahans" style="color: aliceblue">Data Kelurahan</a>
-            <span>--</span>
-            <a class="navbar-link active" href="/pasiens" style="color: aliceblue">Data Pasien</a>
-        </div>
-    </nav>
-</nav>
 
+<body style="background: lightgray">
 
-<body style="background: rgb(219, 212, 253)">
-
-    <div class="container mt-5 mb-5 " style="background: rgb(158, 147, 219)">
+    <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-md-12">
-                <h3 class="text-center my-4">REGISTRASI PASIEN</h3>
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <form action="{{ route('pasiens.store') }}" method="POST" enctype="multipart/form-data">
-
+                        <form action="{{ route('pasiens.update', $pasien->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
-
-
+                            @method('PUT')
 
                             <div class="form-group">
                                 <label class="font-weight-bold">Nama</label>
                                 <input type="text" class="form-control @error('nama') is-invalid @enderror"
-                                    name="nama" value="{{ old('nama') }}" placeholder="Masukkan Nama nama">
+                                    name="nama" value="{{ old('nama', $pasien->nama) }}"
+                                    placeholder="Masukkan Nama nama">
 
                                 <!-- error message untuk nama -->
                                 @error('nama')
@@ -49,7 +38,7 @@
                             <div class="form-group">
                                 <label class="font-weight-bold">Tanggal Lahir</label>
                                 <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror"
-                                    name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
+                                    name="tanggal_lahir" value="{{ old('tanggal_lahir', $pasien->tanggal_lahir) }}"
                                     placeholder="Masukkan Nama tanggal_lahir">
 
                                 <!-- error message untuk tanggal_lahir -->
@@ -62,9 +51,11 @@
                             <div class="form-group">
                                 <label class="font-weight-bold">Jenis_Kelamin : </label>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="jenis_kelamin" value="L" id="jenis_kelamin"
+                                    <input type="radio" name="jenis_kelamin"
+                                        value="{{ old('jenis_kelamin', $pasien->jenis_kelamin) }}" id="jenis_kelamin"
                                         required>Laki-Laki>
-                                    <input type="radio" name="jenis_kelamin" value="P" id="jenis_kelamin"
+                                    <input type="radio" name="jenis_kelamin"
+                                        value="{{ old('jenis_kelamin', $pasien->jenis_kelamin) }}" id="jenis_kelamin"
                                         required>Perempuan>
 
 
@@ -83,7 +74,8 @@
                                     <div class="input-group mb-3">
 
                                         <input type="text" class="form-control @error('alamat') is-invalid @enderror"
-                                            name="alamat" value="" placeholder="Masukkan Alamat">
+                                            name="alamat" value="{{ old('alamat', $pasien->alamat) }}"
+                                            placeholder="Masukkan Alamat">
                                     </div>
                                     <!-- error message untuk alamat -->
                                     @error('alamat')
@@ -98,17 +90,17 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">RT</span>
                                         <input type="text" class="form-control @error('rt') is-invalid @enderror"
-                                            name="rt" value="" placeholder="RT">
+                                            name="rt" value="{{ old('rt', $pasien->rt) }}" placeholder="RT">
                                         <span class="input-group-text">RW</span>
                                         <input type="text" class="form-control @error('rw') is-invalid @enderror"
-                                            name="rw" value="" placeholder="RW">
+                                            name="rw" value="{{ old('rw', $pasien->rw) }}" placeholder="RW">
 
-                                        <select name="kelurahan" class="form-control">
+                                        {{-- <select name="kelurahan" class="form-control">
                                             <option value="kelurahan">Kelurahan -</option>
                                             @foreach ($kelurahans as $item)
                                                 <option value="{{ $item->kelurahan }}">{{ $item->kelurahan }}</option>
                                             @endforeach
-                                        </select>
+                                        </select> --}}
                                     </div>
                                     <!-- error message untuk alamat -->
                                     @error('alamat')
@@ -126,7 +118,7 @@
                             <div class="form-group">
                                 <label class="font-weight-bold">No Telepon</label>
                                 <input type="text" class="form-control @error('no_telepon') is-invalid @enderror"
-                                    name="no_telepon" value="{{ old('no_telepon') }}"
+                                    name="no_telepon" value="{{ old('no_telepon', $pasien->no_telepon) }}"
                                     placeholder="Masukkan No Telepon">
 
                                 <!-- error message untuk jenis_kelamin -->
@@ -137,7 +129,7 @@
                                 @enderror
                             </div>
 
-                            <button type="submit" class="btn btn-md btn-primary">SIMPAN</button>
+                            <button type="submit" class="btn btn-md btn-primary">UPDATE</button>
                             <button type="reset" class="btn btn-md btn-warning">RESET</button>
 
                         </form>
