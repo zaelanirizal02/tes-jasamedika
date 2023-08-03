@@ -87,17 +87,19 @@ class PasienController extends Controller
      */
     public function edit(string $id)
     {
+        $kelurahans = Kelurahan::all();
         //get by ID
         $pasien = Pasien::findOrFail($id);
 
 
         //render view edit
-        return view('pasien.edit', compact('pasien'));
+        return view('pasien.edit', compact('pasien', 'kelurahans'));
     }
 
     //update data edited
     public function update(Request $request, $id): RedirectResponse
     {
+
         //validate form
         $this->validate(
             $request,
@@ -120,9 +122,10 @@ class PasienController extends Controller
             'alamat' => $request->alamat,
             'rt' => $request->rt,
             'rw' => $request->rw,
-            // 'kelurahan' => $request->kelurahan
+            'kelurahan' => $request->kelurahan
 
         ]);
+
 
         //redirect ti index
         return redirect()->route('pasiens.index')->with(['succes' => 'Data Berhasil di Update']);

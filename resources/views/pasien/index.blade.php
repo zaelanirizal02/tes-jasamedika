@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 
-
 <nav class=" navbar-expand-sm bg-primary navbar-light" style="font-size: 20px">
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
         <div class="container-fluid justify-content-center">

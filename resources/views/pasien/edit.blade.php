@@ -95,15 +95,16 @@
                                         <input type="text" class="form-control @error('rw') is-invalid @enderror"
                                             name="rw" value="{{ old('rw', $pasien->rw) }}" placeholder="RW">
 
-                                        {{-- <select name="kelurahan" class="form-control">
-                                            <option value="kelurahan">Kelurahan -</option>
+                                        <select name="kelurahan" class="form-control">
+                                            <option value="">Kelurahan -</option>
                                             @foreach ($kelurahans as $item)
-                                                <option value="{{ $item->kelurahan }}">{{ $item->kelurahan }}</option>
+                                                <option value="{{ $item->kelurahan }}">
+                                                    {{ $item->kelurahan }}</option>
                                             @endforeach
-                                        </select> --}}
+                                        </select>
                                     </div>
                                     <!-- error message untuk alamat -->
-                                    @error('alamat')
+                                    @error('kelurahan')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
                                         </div>
