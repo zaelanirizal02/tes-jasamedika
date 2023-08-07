@@ -20,6 +20,14 @@ class KelurahanController extends Controller
         return view('kelurahan.index', compact('kelurahans'));
     }
 
+    public function blade(): View
+    {
+        //get post
+
+        //view
+        return view('layouts.main');
+    }
+
     //create
     public function create(): View
     {
