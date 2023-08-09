@@ -24,8 +24,8 @@ Route::get('welcome', function () {
     return view('welcome');
 });
 
-Route::resource('/kelurahans', \App\Http\Controllers\KelurahanController::class);
-Route::resource('/pasiens', \App\Http\Controllers\PasienController::class);
+Route::resource('/kelurahans', \App\Http\Controllers\KelurahanController::class)->middleware('auth');
+Route::resource('/pasiens', \App\Http\Controllers\PasienController::class)->middleware('auth');
 
 // Route::get('/', [\App\Http\Controllers\KelurahanController::class, 'index']);
 
@@ -38,10 +38,12 @@ Route::resource('/pasiens', \App\Http\Controllers\PasienController::class);
 
 Route::get('/main', [KelurahanController::class, 'blade']);
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('guest');
+Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/register', [RegisterController::class, 'index']);
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
