@@ -7,6 +7,7 @@ use App\Http\Controllers\PasienController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelurahanController;
+use App\Http\Controllers\UserController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -24,7 +25,8 @@ Route::get('welcome', function () {
     return view('welcome');
 });
 
-Route::resource('/kelurahans', \App\Http\Controllers\KelurahanController::class)->middleware('auth');
+// Route::resource('/kelurahans', \App\Http\Controllers\KelurahanController::class)->middleware('auth');
+Route::resource('/kelurahans', \App\Http\Controllers\KelurahanController::class);
 Route::resource('/pasiens', \App\Http\Controllers\PasienController::class)->middleware('auth');
 
 // Route::get('/', [\App\Http\Controllers\KelurahanController::class, 'index']);
@@ -47,3 +49,6 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
+
+
+// Route::get('/users', [UserController::class, 'index'])->name['user.index'];
